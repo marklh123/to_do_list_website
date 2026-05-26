@@ -1,5 +1,5 @@
 # To-Do List Website by Mark
-My first website, built with Flask, HTML/CSS, and MongoDB. Includes all basic website features, including user signup/login, user authentication with cookies and JWT, create tasks, delete tasks, update tasks, filter tasks, signout, deployment, with all data stored in MongoDB cluster, passwords hashed. 
+My first website, built with Flask, HTML/CSS, and MongoDB. Includes all basic website features, including user signup/login, user authentication with cookies and JWT, create tasks, delete tasks, update tasks, filter tasks, signout, deployment with Render, with all data stored in MongoDB cluster, passwords hashed. 
 
 Primary url for deployement: https://to-do-list-website-3qk4.onrender.com/
 
@@ -17,3 +17,4 @@ Primary url for deployement: https://to-do-list-website-3qk4.onrender.com/
 - basic frontend with HTML/CSS
 - basic backend with Flask
 - database storage with MongoDB
+- web deployement with Render
