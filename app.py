@@ -39,16 +39,13 @@ def home():
         except:
                 return jsonify({'Alert!' : "Invalid Token!"})
         
-        print("payload: ", payload)
         user_id = payload.get("user_id")
         expiration = payload.get("expiration") # 2026-05-21 00:13:08.627460+00:00 for example
         expiration = datetime.strptime(expiration, "%Y-%m-%d %H:%M:%S.%f%z")
 
-        print("Expiration: ", expiration)
-        print(type(datetime.now(UTC)))
+        
 
         if datetime.now(UTC) < expiration:
-             print("Time hasn't passed yet, ", datetime.now(UTC))
              return redirect(url_for("to_do", user_id = user_id))
 
         else:
@@ -94,12 +91,9 @@ def sign_up():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        print(f"name: {name} email: {email} password: {password}")
-
         hashed_password = generate_password_hash(password)
 
         if db.accounts.find_one({"email" : email}):
-            print("cant make that")
             return render_template('sign_up.html')
 
         data = { 
@@ -107,7 +101,6 @@ def sign_up():
                 "email" : email,
                 "password" : hashed_password,
                 "to-do" : []}
-        print(f"data: {data}")
 
         db.accounts.insert_one(data)
         dict_for_account = db.accounts.find_one({"email" : email})
@@ -123,7 +116,6 @@ def sign_up():
 @app.route('/to_do/<user_id>', methods=["GET","POST","DELETE"])
 def to_do(user_id):
     token = request.cookies.get('token')
-    print(f"TOKEN: {token}")
     if not token:
             return jsonify({"Alert!" : "Token is missing!"})
     try:
@@ -136,9 +128,6 @@ def to_do(user_id):
     user_email = dict_for_account.get("email")
     name = dict_for_account.get("name")
     token_email = payload.get("email")
-    print("USER EMAIL: ", user_email)
-    print("TOKEN EMAIL: ", token_email)
-    print("LOGGED IN: ", session["logged_in"])
 
     if user_email == token_email or not session["logged_in"] == True:
          to_do_list = dict_for_account.get("to-do")
@@ -146,10 +135,8 @@ def to_do(user_id):
          important_filter = False
 
          if request.form.get("Filter By Important"):
-            print("Filter on")
             important_filter = True
          elif request.form.get("Descelect Filter"):
-            print("Filter off")
             important_filter = False
 
          if request.form.get("Title Create"): # create task
@@ -164,9 +151,7 @@ def to_do(user_id):
         
          elif request.form.get("Delete Task"): # delete task
             delete_task = request.form.get("Delete Task")
-            print(f"Deleting this task gng {delete_task}")
 
-            print("To Do list length: ", len(to_do_list))
             if len(to_do_list) > 0:
                 for x in to_do_list: 
                     if x.get("title") == delete_task:
@@ -179,12 +164,8 @@ def to_do(user_id):
             if len(old_title) > 0:
                 old_title = "".join(old_title[0])
                 new_title = request.form.get("New Title")
-                
-                print("Old title: ", old_title)
-                print("The entire list: ", to_do_list)
 
                 correct_td_list = [x for x in to_do_list if old_title == x.get("title")]
-                print("td list 1: ", correct_td_list)
 
                 for x in correct_td_list:
                     correct_td_list = x
@@ -227,7 +208,6 @@ def to_do(user_id):
             old_des = [td.get("description") for td in to_do_list if td.get("description") == request.form.get("Old Description")]
             if len(old_des) > 0:
                 old_des = "".join(old_des[0])
-                print(old_des)
                 new_title = request.form.get("New Title")
                 
                 correct_td_list = [x for x in to_do_list if old_des == x.get("description")]
