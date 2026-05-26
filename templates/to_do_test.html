@@ -1,0 +1,200 @@
+<!doctype html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* full screen height */
+      }
+      main {
+        flex: 1; /* main takes all remaining space between header and footer */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* prevents main itself from expanding */
+      }
+      header {
+        background-color: coral;
+        text-align: center;
+        color: white;
+        font-size: large;
+        padding: 1%;
+      }
+
+      .task_list {
+        height: 420px; /* fixed height, adjust to whatever looks good */
+        overflow-y: auto; /* adds a scrollbar when tasks overflow */
+        border: 1px solid #ccc; /* optional, helps visually separate it */
+        font-size: xx-large;
+      }
+
+      .filter_toggle{
+        display: flex;
+        input[type=submit]{
+          color:coral;
+          font-size: large;
+        }
+      }
+
+      .buttons_area {
+        width: 100%;
+        background-color: coral;
+        display: flex;
+        gap: 5%;
+        height: 300px; /* give it a defined height */
+        align-items: center; /* now this actually works */
+
+        form {
+          flex: 1;
+          margin: 5%;
+          color: black;
+          font-size: x-large;
+        }
+      }
+
+      #create_task,
+      #delete_task,
+      #update_task {
+        flex: 1;
+        display: flex;
+        align-items: center; /* centers form vertically */
+        justify-content: center; /* centers form horizontally */
+      }
+      .navbar {
+        background-color: whitesmoke;
+        text-align: center;
+        padding: 1%;
+      }
+      .navbar a {
+        height: 50px;
+        color: coral;
+        text-decoration: none;
+        padding: 1;
+        font-size: x-large;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome {{name}}</h1>
+      <h2>Here is your to-do list</h2>
+    </header>
+
+    <main>
+      <div class="task_list">
+        <ul>
+          
+          {% for i in td %} 
+          {% if i["important"] == True %}
+          <li>(IMPORTANT) {{ i["title"] }}: {{ i["description"] }}</li>
+          {% else %}
+          <li>{{ i["title"] }}: {{ i["description"] }}</li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class = "filter_toggle">
+        <form action="" method="post">
+            <input type="submit" id="toggle" value="Filter By Important" name="Filter By Important"> 
+        </form>
+        <form action="" method="post">
+            <input type="submit" id="toggle" value="Descelect Filter" name="Descelect Filter"> 
+        </form>
+
+      </div>
+      <div class="buttons_area">
+        <div id="create_task">
+          <form action="" method="post">
+            <label> Create new task<br /></label>
+            <label for="title_id"> Title</label>
+            <input
+              type="text"
+              id="title_id"
+              name="Title Create"
+              minlength="3"
+              required
+            /><br />
+            <label for="desc_id"> Description</label>
+            <input
+              type="text"
+              id="desc_id"
+              name="Description Create"
+              minlength="3"
+            /><br />
+            <label> Important
+              <input 
+              type="checkbox"
+              name = "important"
+              />
+            </label>
+            <input type="submit" />
+          </form>
+        </div>
+        <div id="delete_task">
+          <form action="" method="post">
+            <label> Delete task </label>
+            <input
+              type="text"
+              id="del_id"
+              name="Delete Task"
+              minlength="3"
+              placeholder="Enter Task Title..."
+            /><br />
+            <input type="submit" />
+          </form>
+        </div>
+        <div id="update_task">
+          <form action="" method="post">
+            <label> Update task <br /></label>
+            <label for="old_title_id"> Title </label>
+            <input
+              type="text"
+              id="old_title_id"
+              name="Old Title"
+              minlength="3"
+            /><br />
+            <label for="old_desc_id"> Description</label>
+            <input
+              type="text"
+              id="old_desc_id"
+              name="Old Description"
+              minlength="3"
+            /><br />
+            <label for="new_title_id"> New Title</label>
+            <input
+              type="text"
+              id="new_title_id"
+              name="New Title"
+              minlength="3"
+            /><br />
+            <label for="new_desc_id"> New Description</label>
+            <input
+              type="text"
+              id="new_desc_id"
+              name="New Description"
+              minlength="3"
+            /><br />
+            <label> Important
+              <input 
+              type="checkbox"
+              name = "important"
+              />
+            </label>
+            <input type="submit" />
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <nav class="navbar">
+        <a href="/track-click"> Signout </a>
+      </nav>
+    </footer>
+  </body>
+</html>

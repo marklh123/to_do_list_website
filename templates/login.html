@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <style>
+      body {
+        background-color: white;
+      }
+      .container {
+        h1 {
+          font-weight: bold;
+          color: coral;
+          font-size: xx-large;
+        }
+        display: flex;
+        flex-direction: column; /* Stacks text/images vertically */
+        justify-content: center; /* Centers vertically */
+        align-items: center; /* Centers horizontally */
+        height: 100vh; /* Makes container full screen height */
+        label[for="username"],
+        label[for="password"] {
+          font-weight: bold;
+          color: coral;
+          font-size: large;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <h1>Login</h1>
+        <form action="/login" method="post">
+          
+          <label for="email_id"> Email </label> <!-- for= is to match id= -->
+          <input
+            type="text"
+            id="email_id"
+            name="email" 
+            minlength="4"
+            placeholder="Enter password..."
+            required
+          /><br /> <!-- name= is for flask, request.form.get("email") -->
+
+          <label for="password_id"> Password </label>
+          <input
+            type="text"
+            id="password_id"
+            name="password"
+            minlength="4"
+            placeholder="Enter password..."
+            required
+          /><br />
+
+          <input type="submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
