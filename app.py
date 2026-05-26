@@ -1,7 +1,6 @@
-# let's import the flask
 from flask import Flask, render_template, request, redirect, url_for, session, make_response, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-import os # importing operating system module
+import os 
 import certifi
 import json
 from bson.objectid import ObjectId
@@ -10,13 +9,17 @@ import pymongo
 import copy
 import jwt
 from datetime import datetime, timedelta, UTC
+from dotenv import load_dotenv
+
+load_dotenv()
+import os 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "CGphS98Cuk478Zlf3Nds11Nh2xnKl0A2-qpBnx97vw4"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 ca = certifi.where()
 
-MONGODB_URI='mongodb+srv://marktennisking_db_user:d0LRYPZ4w84PdevU@todo-cluster.vrumbwy.mongodb.net/?appName=todo-cluster'
-client = pymongo.MongoClient(MONGODB_URI,tlsCAFile=ca)
+MONGODB_URL = os.environ.get("MONGODB_URL")
+client = pymongo.MongoClient(MONGODB_URL,tlsCAFile=ca)
 db = client["accounts_info"]
 app.permanent_session_lifetime = timedelta(minutes=5)
 
@@ -244,7 +247,7 @@ def to_do(user_id):
          newvalues = { "$set": { "to-do": to_do_list } }
          db.accounts.update_one(myquery,newvalues)
         
-         return render_template('to_do2.html', name = name, td = to_do_list, important_filter = important_filter)
+         return render_template('to_do.html', name = name, td = to_do_list, important_filter = important_filter)
     else:
         return jsonify({'Alert!' : "Access Denied!"})
 
