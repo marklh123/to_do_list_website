@@ -3,4 +3,4 @@ My first website, built with Flask, HTML/CSS, and MongoDB. Includes all basic we
 
 Primary url for deployement: https://to-do-list-website-3qk4.onrender.com/
 
-<img width="1440" height="753" alt="Screen Shot 2026-05-25 at 10 33 25 PM" src="https://github.com/user-attachments/assets/f629d2c2-c806-433a-8e99-970ce562ea0e" />
+<img width="1100" height="500" alt="Screen Shot 2026-05-25 at 10 33 25 PM" src="https://github.com/user-attachments/assets/f629d2c2-c806-433a-8e99-970ce562ea0e" />
